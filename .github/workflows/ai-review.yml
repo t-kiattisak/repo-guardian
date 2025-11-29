@@ -17,7 +17,7 @@ jobs:
         with:
           gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          model: gemini-1.5-flash
+          model: gemini-2.0-flash
           # The action typically reviews the PR context automatically.
           # We might need to adjust arguments based on the specific action docs,
           # but this is a reasonable starting point based on the search result.
