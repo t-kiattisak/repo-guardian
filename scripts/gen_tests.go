@@ -11,10 +11,14 @@ import (
 	"strings"
 
 	"github.com/google/generative-ai-go/genai"
+	"github.com/joho/godotenv"
 	"google.golang.org/api/option"
 )
 
 func main() {
+	// Load .env file if it exists
+	_ = godotenv.Load()
+
 	filePath := flag.String("file", "", "Path to the Go file to generate tests for")
 	flag.Parse()
 
@@ -39,10 +43,8 @@ func main() {
 	}
 	defer client.Close()
 
-	model := client.GenerativeModel("gemini-1.5-flash")
-
-	// Configure generation config if needed, e.g. temperature
-	// model.SetTemperature(0.2)
+	// Use gemini-2.0-flash as confirmed by user's model list
+	model := client.GenerativeModel("gemini-2.0-flash")
 
 	prompt := fmt.Sprintf(`You are an expert Go developer. Generate comprehensive unit tests for the following Go code using the standard 'testing' package. 
 Output ONLY the code for the test file, including package declaration and imports. 

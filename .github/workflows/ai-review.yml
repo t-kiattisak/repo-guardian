@@ -13,11 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: google-github-actions/run-gemini-cli@v0.1.0-alpha
+      - uses: google-github-actions/run-gemini-cli@v0.1.15
         with:
           gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          model: gemini-1.5-flash
+          model: gemini-2.0-flash
           # The action typically reviews the PR context automatically.
           # We might need to adjust arguments based on the specific action docs,
           # but this is a reasonable starting point based on the search result.

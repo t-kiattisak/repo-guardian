@@ -8,6 +8,9 @@ on:
         required: true
         default: "main.go"
 
+permissions:
+  contents: write
+
 jobs:
   generate-tests:
     runs-on: ubuntu-latest
