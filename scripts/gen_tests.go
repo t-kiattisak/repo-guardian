@@ -39,7 +39,7 @@ func main() {
 	}
 	defer client.Close()
 
-	model := client.GenerativeModel("gemini-1.5-flash")
+	model := client.GenerativeModel("gemini-1.5-flash-001")
 
 	// Configure generation config if needed, e.g. temperature
 	// model.SetTemperature(0.2)
