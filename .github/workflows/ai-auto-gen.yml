@@ -34,9 +34,19 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python scripts/auto_gen_test.py
 
-      - name: Commit and Push changes
-        uses: stefanzweifel/git-auto-commit-action@v5
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
         with:
-          commit_message: "🤖 AI Generated Tests (Gemini)"
-          branch: ${{ github.head_ref }}
-          file_pattern: "**/*_test.go"
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "🤖 AI Generated Tests"
+          title: "🤖 AI Generated Tests for ${{ github.head_ref }}"
+          body: |
+            This PR contains AI-generated unit tests for changes in `${{ github.head_ref }}`.
+
+            **Action Required:**
+            - Review the generated tests.
+            - If they look good, merge this PR into `${{ github.head_ref }}`.
+            - If not, you can close this PR or push changes to it.
+          branch: ai-tests/${{ github.head_ref }}
+          base: ${{ github.head_ref }}
+          delete-branch: true
