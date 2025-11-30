@@ -42,3 +42,15 @@ func (r *memoryUserRepository) GetByID(ctx context.Context, id int64) (*domain.U
 
 	return user, nil
 }
+
+func (r *memoryUserRepository) Delete(ctx context.Context, id int64) error {
+	r.mu.Lock()
+	defer r.mu.Unlock()
+
+	if _, exists := r.users[id]; !exists {
+		return errors.New("user not found")
+	}
+
+	delete(r.users, id)
+	return nil
+}

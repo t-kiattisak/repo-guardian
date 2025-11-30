@@ -20,6 +20,7 @@ func NewUserHandler(f *fiber.App, us domain.UserUsecase) {
 
 	f.Post("/users", handler.Register)
 	f.Get("/users/:id", handler.GetUser)
+	f.Delete("/users/:id", handler.DeleteUser)
 }
 
 func (h *UserHandler) Register(c *fiber.Ctx) error {
@@ -50,4 +51,19 @@ func (h *UserHandler) GetUser(c *fiber.Ctx) error {
 	}
 
 	return c.JSON(user)
+}
+
+func (h *UserHandler) DeleteUser(c *fiber.Ctx) error {
+	idStr := c.Params("id")
+	id, err := strconv.ParseInt(idStr, 10, 64)
+	if err != nil {
+		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": "Invalid ID"})
+	}
+
+	ctx := c.Context()
+	if err := h.UserUsecase.DeleteUser(ctx, id); err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{"error": err.Error()})
+	}
+
+	return c.SendStatus(http.StatusNoContent)
 }

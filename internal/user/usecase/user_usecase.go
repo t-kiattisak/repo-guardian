@@ -30,3 +30,9 @@ func (a *userUsecase) GetUser(c context.Context, id int64) (*domain.User, error)
 	defer cancel()
 	return a.userRepo.GetByID(ctx, id)
 }
+
+func (a *userUsecase) DeleteUser(c context.Context, id int64) error {
+	ctx, cancel := context.WithTimeout(c, a.contextTimeout)
+	defer cancel()
+	return a.userRepo.Delete(ctx, id)
+}
